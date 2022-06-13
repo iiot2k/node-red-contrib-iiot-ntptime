@@ -1,0 +1,89 @@
+<!--
+  Copyright 2022 Ocean (iiot2k@gmail.com).
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('iiot-ntptime', {
+        category: 'iiot modules',
+        color: 'LightSeaGreen',
+        paletteLabel: 'ntp time',
+        defaults: {
+            ntpserver:  { value: "time.google.com", required: true},
+            ampm:       { value: false },
+            tupdate:    { value: 300,  required: true,  validate: function(v) { return RED.validators.number(v) && (v >= 100) && (v <= 10000); } },
+            tout:       { value: 5000,  required: true,  validate: function(v) { return RED.validators.number(v) && (v >= 500) && (v <= 10000); } },
+        },
+        inputs: 1,
+        outputs: 1,
+        inputLabels: "in:string",
+        outputLabels: ["out:array"],
+        icon: "font-awesome/fa-globe",
+        label: "ntp time",
+    });
+</script>
+
+<script type="text/html" data-template-name="iiot-ntptime">
+    <div class="form-row">
+        <label style="width:100%; border-bottom: 2px solid rgb(0, 0, 0);"><b>NTP Server Time</b></label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-ntpserver"><b>NTP Server</b></label>
+        <input type="text" id="node-input-ntpserver">
+    </div>
+    <div class="form-row">
+        <label for="node-input-ampm"><b>AM/PM</b></label>
+        <input type="checkbox" id="node-input-ampm" style="display: inline-block; width: auto; vertical-align: top;">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tupdate"><b>Update Cycle</b></label>
+        <input id="node-input-tupdate" input type="number" min="100" max="10000" required style="width: auto;">
+        <label> ms</label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-tout"><b>Timeout</b></label>
+        <input id="node-input-tout" input type="number" min="500" max="10000" required style="width: auto;">
+        <label> ms</label>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="iiot-ntptime">
+    <p>NTP Server Time</p>
+    <h3><b>Input:</b></h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">string</span></dt>
+        <dd>Server adress</dd>
+    </dl>
+    <h3><b>Output:</b></h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">number array</span></dt>
+        <dd>payload[0] <- Seconds (0..59)</dd>
+        <dd>payload[1] <- Minutes (0..59)</dd>
+        <dd>payload[2] <- Hours (0..12/23)</dd>
+        <dd>payload[3] <- AM/PM (0=AM, 1=PM)</dd>
+        <dd>payload[4] <- Weekday (0=Sunday)</dd>
+        <dd>payload[5] <- Day (1..31)</dd>
+        <dd>payload[6] <- Month (1..12)</dd>
+        <dd>payload[7] <- Year (YYYY)</dd>
+</dl>
+    <h3><b>Data:</b></h3>
+        <dl class="message-properties">
+        </dl>
+    <h3><b>Details:</b></h3>
+    <p>
+        Reads NTP server time<br>
+        and sends as array.<br>
+        Input message changes server address.<br>
+	</p>
+</script>

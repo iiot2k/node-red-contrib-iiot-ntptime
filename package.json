@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-iiot-ntptime",
+  "version": "1.0.19",
+  "description": "A Node-Red node for read NTP server time",
+
+  "dependencies": {
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iiot2k/node-red-contrib-iiot-ntptime"
+  },
+
+  "license": "Apache-2.0",
+  "keywords": ["node-red", "time", "system time", "ntp time", "ntp", "iot", "iiot"],
+
+  "node-red": {
+    "nodes": {
+      "iiot-ntptime": "ntptime.js"
+    }
+  },
+
+  "author": {
+    "name": "Ocean",
+    "email": "iiot2k@gmail.com",
+    "url": "https://github.com/iiot2k/node-red-contrib-iiot-ntptime"
+  }
+}
